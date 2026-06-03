@@ -174,3 +174,8 @@ Desenvolvido como projeto de estudo para aprofundar conhecimentos em:
 * Pentest
 * Programação Concorrente
 
+
+### Foto do projeto:
+
+<img width="1440" height="867" alt="scanner" src="https://github.com/user-attachments/assets/752d666e-cfe3-4798-9faf-d4b4b9427083" />
+
