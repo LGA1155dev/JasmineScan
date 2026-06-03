@@ -179,3 +179,6 @@ Desenvolvido como projeto de estudo para aprofundar conhecimentos em:
 
 <img width="1440" height="867" alt="scanner" src="https://github.com/user-attachments/assets/752d666e-cfe3-4798-9faf-d4b4b9427083" />
 
+<img width="1536" height="1024" alt="ChatGPT Image Jun 3, 2026, 04_11_45 PM" src="https://github.com/user-attachments/assets/f6137470-3243-49ab-80f8-7e35960faf07" />
+
+
