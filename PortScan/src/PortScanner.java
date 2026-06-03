@@ -1,5 +1,6 @@
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.util.Map;
 import java.util.concurrent.*;
 import  java.util.ArrayList;
 import java.util.List;
@@ -11,13 +12,15 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 
 
 public class PortScanner {
 
     public static void main(final String... args)
 
-            throws InterruptedException, ExecutionException {
+            throws Exception {
 
                         final ExecutorService es = Executors.newCachedThreadPool();
                         System.out.print("Ip que deseja escanear:  ");
@@ -27,8 +30,19 @@ public class PortScanner {
                         int year = today.getYear();
                         int month = today.getDayOfMonth();
                         int day = today.getMonthValue();
+                        LocalDateTime time = LocalDateTime.now();
+                        int hour = time.getHour();
+                        int minute = time.getMinute();
+                        int second = time.getSecond();
+                        String state;
 
-                        System.out.println("JasmineScan está começando a  escanear... ( https://jasminescan.org )  "  + year + "/0" + day + "/0" + month );
+
+                        AsciiArt.printBanner();
+                        System.out.println();
+                        System.out.println(" ");
+                        System.out.println("JasmineScan está começando a  escanear... ( https://jasminescan.org )  "  + year + "/0" + day + "/0" +  month + " - " + hour +":"+ minute + ":"+ second);
+                        System.out.println();
+                        System.out.println(" ");
 
 
                         final int timeout = 200;
@@ -40,20 +54,48 @@ public class PortScanner {
 
                         es.shutdown();
                         es.awaitTermination(
-                                200,
-                                TimeUnit.MILLISECONDS
+                                5,
+                                TimeUnit.SECONDS
                         );
+
 
                         int openPorts = 0;
 
                         for (final Future<ScanResult> f : futures){
 
                             ScanResult result = f.get();
+
                             if (result.isOpen()){
+                                state = "open";
+
+                                Map<Integer, String> services = Map.of(
+                                        80, "HTTP",
+                                        443, "HTTPS",
+                                        53, "DNS",
+                                        22, "SSH",
+                                        23, "Telnet",
+                                        21, "FTP",
+                                        20, "FTP",
+                                        110, "POP3",
+                                        143, "IMAP",
+                                        25, "SMTP"
+
+                                );
 
                                 openPorts++;
-                                System.out.println(f.get().getPort());
+                                System.out.println();
+                                System.out.println(" ");
+                                System.out.println("PORTA |   ESTADO   | SERVIÇO    ");
+                                System.out.println(" ");
+                                System.out.println(f.get().getPort() + "/tcp|    " + state +"    | "+ services.get(result.getPort()));
+                                System.out.println();
+                                System.out.println(" ");
+                                System.out.println("-=-=-=-=-=-=-=-=-=-=-=-=-=-=" );
+                                System.out.println();
+                                System.out.println(" ");
 
+                            } else{
+                                state = "close";
                             }
                         }
         System.out.println("Existem: " + openPorts + " portas abertas na host " + ip + " (o tempo de espera foi: " + timeout + " ms)");
