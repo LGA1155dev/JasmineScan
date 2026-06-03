@@ -36,7 +36,8 @@ public class PortScanner {
                         int second = time.getSecond();
                         String state;
 
-
+                        System.out.println();
+                        System.out.println(" ");
                         AsciiArt.printBanner();
                         System.out.println();
                         System.out.println(" ");

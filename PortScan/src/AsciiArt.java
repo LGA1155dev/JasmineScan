@@ -10,8 +10,7 @@ public class AsciiArt {
 
 
         File file = new File("Jasmine.png");
-        System.out.println(file.getAbsolutePath());
-    BufferedImage Image = ImageIO.read(file);
+        BufferedImage Image = ImageIO.read(file);
 
 
     int newWidth = 150;
